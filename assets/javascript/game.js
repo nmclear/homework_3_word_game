@@ -27,6 +27,8 @@ var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
     var totalWin = 0;
     var totalLoss = 0;
 
+    var display = [];
+    var guessBank = [];
 
 
 //========================================================================================================================
@@ -39,11 +41,18 @@ function startGame() {
          
 
     //Create blankSpaces
+        // for(i = 0; i < gameWord.length; i++) {
+        //     var letters = gameWord.charAt(i);
+        //     document.querySelector("#display").insertAdjacentHTML('beforeend', "<span>_ </span>");
+        //     console.log(letters);
+        // }
+
         for(i = 0; i < gameWord.length; i++) {
-            var letters = gameWord.charAt(i);
-            document.querySelector("#display").insertAdjacentHTML('beforeend', "<span>_ </span>");
-            console.log(letters);
+            console.log(gameWord);
+            display.push("_ ");   
         }
+        document.querySelector("#display").insertAdjacentHTML('beforeend', display);
+
 }
 
 
@@ -54,12 +63,16 @@ function checkGuess(){
         // determine which key was pressed.
         var userGuess = event.key;
 
-        if(gameWord.indexOf(userGuess) === -1) {
+        checkGuessBank(userGuess);
+
+
+        if(gameWord.indexOf(userGuess) !== -1) {
+            correctLetter++;
+        } else {
             wrongLetter++;
             guessesRemaining--;
-        } else {
-            correctLetter++;
         }
+
 
         // create a variable to hold new HTML
         var html =
@@ -76,6 +89,17 @@ function checkGuess(){
         checkGameOver();
     }
 }
+
+function checkGuessBank(value){
+    if(guessBank.indexOf(value) === -1) {
+        guessBank.push(value);
+        console.log(guessBank);
+    }
+    else {
+        checkGuess();
+    }
+}
+
 
 
 function checkGameOver() {
