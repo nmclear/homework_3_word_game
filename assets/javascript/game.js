@@ -1,3 +1,4 @@
+//========================================================================================================================
 //VARIABLES
 //========================================================================================================================
 // wordBank to selected a gameWord.
@@ -16,6 +17,9 @@ var wordBank = [
     "paper"
 ];
 
+// randomly selected guessWord from wordBank.
+var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+
 //create variables to store: correct guess, incorrect letters, guesses remaining, total win, total loss.
     var guessesRemaining = 7;
     var correctLetter = 0;
@@ -25,74 +29,15 @@ var wordBank = [
 
 
 
-// /randomly selected guessWord from gameWords array.
-// var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-
-
-// var letters = gameWord.split('');
-
-// // list blank space per letter of random word.
-// for(var i = 0; i < letters.length; i++){
-//     var blankSpace =
-//     "<span>_ </span>";
-//     document.querySelector("#letterSpace").innerHTML = blankSpace.repeat(i);
-// }
-
-
-
-// create a function to run whenever a key is pressed.
-document.onkeyup = function(event) {
-
-    // determine which key was pressed.
-    var userGuess = event.key;
-
-
-    // create logic to determine if letter pressed is in randomly selected word.
-        // if letter is not in word, [subtract 1 from guesses left var], [list the letter guess in respected spot]
-    // if(gameWord.indexOf(userGuess) === -1) {
-    //     wrongLetter++;
-    //     guessesRemaining--;
-    // }
-    // else {
-    //     correctLetter++;
-    //     document.querySelector("#letterSpace").innerHTML = userGuess;
-    
-
-    // if letter is in word, replace blank space with the letter.
-
-
-    // if letter has been already pressed, alert "already guessed"
-
-
-
-
-
-
-    // create a variable to hold new HTML
-    var html =
-    "<p>You chose: " + userGuess + "</p>" +
-    "<p>Guesses Remaining: " + guessesRemaining + "</p>" +
-    "<p>Correct Guesses: " + correctLetter + "</p>" +
-    "<p>Incorrect Guesses: " + wrongLetter + "</p>" +
-    "<p>Wins: " + totalWin + "</p>" +
-    "<p>Losses: " + totalLoss + "</p>";
-
-    // set the inner html contents of #game div to html string.
-    document.querySelector("#game").innerHTML = html;
-
-}
-
-
-
-
-
+//========================================================================================================================
 //FUNCTIONS
 //========================================================================================================================
 
 function startGame() {
     // randomly selected guessWord from wordBank.
-        var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+        // var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
          
+
     //Create blankSpaces
         for(i = 0; i < gameWord.length; i++) {
             var letters = gameWord.charAt(i);
@@ -104,69 +49,54 @@ function startGame() {
 
 // Determine if letter pressed is in randomly selected word.
 function checkGuess(){
-    if(gameWord.indexOf(userGuess) === -1) {
-        wrongLetter++;
-        guessesRemaining--;
-    }
-    else {
-        correctLetter++;
-        document.querySelector("#letterSpace").innerHTML = userGuess;
-    }
+    // create a function to run whenever a key is pressed.   
+    document.onkeyup = function(event) {
+        // determine which key was pressed.
+        var userGuess = event.key;
 
+        if(gameWord.indexOf(userGuess) === -1) {
+            wrongLetter++;
+            guessesRemaining--;
+        } else {
+            correctLetter++;
+        }
 
+        // create a variable to hold new HTML
+        var html =
+        "<p>You chose: " + userGuess + "</p>" +
+        "<p>Guesses Remaining: " + guessesRemaining + "</p>" +
+        "<p>Correct Letters: " + correctLetter + "</p>" +
+        "<p>Wrong Letters: " + wrongLetter + "</p>" +
+        "<p>Wins: " + totalWin + "</p>" +
+        "<p>Losses: " + totalLoss + "</p>";
+
+        // set the inner html contents of #game div to html string.
+        document.querySelector("#game").innerHTML = html;
+
+        checkGameOver();
+    }
 }
 
 
-
-
-
-
-
-function gameOver() {
+function checkGameOver() {
     if(guessesRemaining === 0) {
         alert("Game Over");
+        totalLoss++;
+        document.location.reload();
     }
 }
 
 
 
 
-
-    // show win/loss
-    
-    //give user 7 guesses
-
-
-
+//========================================================================================================================
 // PLAY GAME
 //========================================================================================================================
     startGame();
     checkGuess();
-    gameOver();
     
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if guess remaining = 0, [end the game] [add 1 to losses] [prompt for new game]
-// if(guessesRemaining === 0){
-//     alert("GAME OVER");
-//     document.location.reload();
-// }
 
 
 
