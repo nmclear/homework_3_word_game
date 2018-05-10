@@ -20,6 +20,7 @@ var wordBank = [
 // randomly selected guessWord from wordBank.
 var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
+
 //create variables to store: correct guess, incorrect letters, guesses remaining, total win, total loss.
     var guessesRemaining = 7;
     var correctLetter = 0;
@@ -27,7 +28,7 @@ var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
     var totalWin = 0;
     var totalLoss = 0;
 
-    var display = [];
+
     var guessBank = [];
 
 
@@ -36,22 +37,26 @@ var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 //========================================================================================================================
 
 function startGame() {
-    // randomly selected guessWord from wordBank.
-        // var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+
          
+    //Split gameWord into array of characters
+    var gameWordChar = gameWord.split("");
 
     //Create blankSpaces
-        // for(i = 0; i < gameWord.length; i++) {
-        //     var letters = gameWord.charAt(i);
-        //     document.querySelector("#display").insertAdjacentHTML('beforeend', "<span>_ </span>");
-        //     console.log(letters);
-        // }
+    var display = [];
+    for(i = 0; i <gameWordChar.length; i++) {
+        console.log(gameWordChar[i]);
+        display += "_";
+    }
+    document.querySelector("#display").innerHTML = display;
 
-        for(i = 0; i < gameWord.length; i++) {
-            console.log(gameWord);
-            display.push("_ ");   
-        }
-        document.querySelector("#display").insertAdjacentHTML('beforeend', display);
+
+        // var display = [];
+        // for(i = 0; i < gameWord.length; i++) {
+        //     console.log(gameWord[i]);
+        //     display.push("_ ");   
+        // }
+        // document.querySelector("#display").innerHTML = display;
 
 }
 
@@ -100,6 +105,11 @@ function checkGuessBank(value){
     }
 }
 
+
+
+function replaceLetter() {
+
+}
 
 
 function checkGameOver() {
