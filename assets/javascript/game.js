@@ -17,18 +17,13 @@ var wordBank = [
     "paper"
 ];
 
-
-
 //create variables to store: correct guess, incorrect letters, guesses remaining, total win, total loss.
     var guessesRemaining = 7;
     var correctLetter = 0;
     var wrongLetter = 0;
-    var totalWin = 0;
-    var totalLoss = 0;
-
 
     var guessBank = [];
-
+    var gameWord = selectGameWord();
 
 //========================================================================================================================
 //FUNCTIONS
@@ -36,34 +31,19 @@ var wordBank = [
 
 // randomly selected guessWord from wordBank.
 function selectGameWord(){    
-    var gameWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-    return gameWord;
+    return wordBank[Math.floor(Math.random() * wordBank.length)];
 }
 
-
 function startGame() {
-
-    
     //Split gameWord into array of characters
-    var gameWordChar = selectGameWord().split("");
-
-    //Create blankSpaces
+    var gameWordChar = gameWord.split("");
+    //Create blankSpaces and add blank space to display.
     var display = [];
     for(i = 0; i <gameWordChar.length; i++) {
         console.log(gameWordChar[i]);
         display += "_";
     }
-
     document.querySelector("#display").innerHTML = display;
-
-
-        // var display = [];
-        // for(i = 0; i < gameWord.length; i++) {
-        //     console.log(gameWord[i]);
-        //     display.push("_ ");   
-        // }
-        // document.querySelector("#display").innerHTML = display;
-
 }
 
 
@@ -99,20 +79,23 @@ function checkGuess(){
     }
 }
 
+
+
 function checkGuessBank(value){
     //if guess is not in guess bank, add character to guess bank.
     if(guessBank.indexOf(value) === -1) {
         guessBank.push(value);
         console.log("guessBank: " + guessBank);
     }
-    else {
-        checkGuess();
-    }
+    //create bank var and display guessBank in #bank div
+    var bank =
+        "<p> Guessed Letters: " + guessBank + "</p>"
+    document.querySelector("#bank").innerHTML = bank;
 }
 
 
 
-function replaceLetter(value) {
+function replaceLetter() {
     
 }
 
