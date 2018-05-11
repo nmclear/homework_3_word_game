@@ -86,7 +86,7 @@ function checkGuess(){
         // set the inner html contents of #game div to html string.
         document.querySelector("#game").innerHTML = html;
 
-        checkGameOver();
+        checkGameStatus();
     }
 }
 
@@ -105,19 +105,25 @@ function checkGuessBank(value){
 }
 
 
-
+//x = index ~~~~ y = gameWord
 function replaceLetter(x, y) {
     hiddenWord.splice(x, 1, y);
     z = hiddenWord.join("");
     document.querySelector("#display").innerHTML = z;
+
+    return z
 }
 
 
 
 
-function checkGameOver() {
+function checkGameStatus() {
     if(guessesRemaining === 0) {
         alert("Game Over");
+        document.location.reload();
+    }
+    else if (z === gameWord) {
+        alert("You Win!");
         document.location.reload();
     }
 }
