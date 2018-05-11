@@ -3,24 +3,21 @@
 //========================================================================================================================
 // wordBank to selected a gameWord.
 var wordBank = [
-    "scranton",
-    "dunder",
-    "mifflin",
-    "creed",
-    "pennsylvania",
     "schrute",
-    "accounting",
-    "manager",
-    "conference",
     "michael",
-    "warehouse",
-    "paper"
+    "kevin",
+    "jim",
+    "pam",
+    "oscar",
+    "andy",
+    "dwight",
+    "erin",
+    "toby",
+    "jan"
 ];
 
 //create variables to store: correct guess, incorrect letters, guesses remaining, total win, total loss.
     var guessesRemaining = 7;
-    var correctLetter = 0;
-    var wrongLetter = 0;
 
     var guessBank = [];
     var gameWord = selectGameWord();
@@ -34,6 +31,7 @@ var wordBank = [
 function selectGameWord(){    
     return wordBank[Math.floor(Math.random() * wordBank.length)];
 }
+console.log(gameWord);
 
 function startGame() {
     //Split gameWord into array of characters
@@ -41,16 +39,9 @@ function startGame() {
     //Add blankSpaces and add blank space to display.
     var display = [];
     for(i = 0; i <gameWordChar.length; i++) {
-        console.log(gameWordChar[i]);
-        
         display.splice(i, 0, "_");
-
-        // display.push("_");
     }
-    // var newDisplay = display.join("");
-
     document.querySelector("#display").innerHTML = display.join("");
-
     return display;
 }
 
@@ -68,35 +59,29 @@ function checkGuess(){
 
         if(index !== -1) {
             correctLetter++;
-            replaceLetter(index, userGuess);
-            
-        } else {
+            replaceLetter(index, userGuess); 
+        }
+        else {
             wrongLetter++;
             guessesRemaining--;
         }
 
-
         // create a variable to hold new HTML
         var html =
         "<p>You chose: " + userGuess + "</p>" +
-        "<p>Guesses Remaining: " + guessesRemaining + "</p>" +
-        "<p>Correct Letters: " + correctLetter + "</p>" +
-        "<p>Wrong Letters: " + wrongLetter + "</p>"
+        "<p>Guesses Remaining: " + guessesRemaining + "</p>"
 
         // set the inner html contents of #game div to html string.
         document.querySelector("#game").innerHTML = html;
 
-        checkGameStatus();
-    }
+        checkGameOver();
+    };
 }
-
-
 
 function checkGuessBank(value){
     //if guess is not in guess bank, add character to guess bank.
     if(guessBank.indexOf(value) === -1) {
         guessBank.push(value);
-        console.log("guessBank: " + guessBank);
     }
     //create bank var and display guessBank in #bank div
     var bank =
@@ -104,43 +89,30 @@ function checkGuessBank(value){
     document.querySelector("#bank").innerHTML = bank;
 }
 
-
+//Replace Blank Space with Letter
 //x = index ~~~~ y = gameWord
 function replaceLetter(x, y) {
     hiddenWord.splice(x, 1, y);
     z = hiddenWord.join("");
     document.querySelector("#display").innerHTML = z;
 
-    return z
-}
-
-
-
-
-function checkGameStatus() {
-    if(guessesRemaining === 0) {
-        alert("Game Over");
-        document.location.reload();
-    }
-    else if (z === gameWord) {
+    //check win
+    if (z === gameWord) {
         alert("You Win!");
         document.location.reload();
     }
 }
 
-
-
+function checkGameOver() {
+    if(guessesRemaining === 0) {
+        
+        alert("Game Over, You Lose!");
+        document.location.reload();
+    }
+}
 
 //========================================================================================================================
 // PLAY GAME
 //========================================================================================================================
     startGame();
     checkGuess();
-    
-
-
-
-// if all letters guessed [end the game] [prompt for new game]
-
-// create function for new game to reset code.
-

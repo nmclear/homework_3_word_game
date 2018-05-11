@@ -1,3 +1,13 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
 #display {
     letter-spacing: 7px;
+}
+
+.top-header {
+    color: #ffffff;
+    background: #333333;
 }
