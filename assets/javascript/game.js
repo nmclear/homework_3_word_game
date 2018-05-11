@@ -24,6 +24,7 @@ var wordBank = [
 
     var guessBank = [];
     var gameWord = selectGameWord();
+    var hiddenWord = startGame();
 
 //========================================================================================================================
 //FUNCTIONS
@@ -37,13 +38,20 @@ function selectGameWord(){
 function startGame() {
     //Split gameWord into array of characters
     var gameWordChar = gameWord.split("");
-    //Create blankSpaces and add blank space to display.
+    //Add blankSpaces and add blank space to display.
     var display = [];
     for(i = 0; i <gameWordChar.length; i++) {
         console.log(gameWordChar[i]);
-        display += "_";
+        
+        display.splice(i, 0, "_");
+
+        // display.push("_");
     }
-    document.querySelector("#display").innerHTML = display;
+    // var newDisplay = display.join("");
+
+    document.querySelector("#display").innerHTML = display.join("");
+
+    return display;
 }
 
 
@@ -56,8 +64,11 @@ function checkGuess(){
 
         checkGuessBank(userGuess);
 
-        if(gameWord.indexOf(userGuess) !== -1) {
+        var index = gameWord.indexOf(userGuess)
+
+        if(index !== -1) {
             correctLetter++;
+            replaceLetter(index, userGuess);
             
         } else {
             wrongLetter++;
@@ -95,9 +106,13 @@ function checkGuessBank(value){
 
 
 
-function replaceLetter() {
-    
+function replaceLetter(x, y) {
+    hiddenWord.splice(x, 1, y);
+    z = hiddenWord.join("");
+    document.querySelector("#display").innerHTML = z;
 }
+
+
 
 
 function checkGameOver() {
